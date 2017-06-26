@@ -14,9 +14,10 @@ terrible_movies = [
     "Starship Troopers"
 ]
 
+watchlist = []
+
 def get_current_watchlist():
-    # returns user's current watchlist--hard coded for now
-    return [ "Star Wars", "Minions", "Freaky Friday", "My Favorite Martian" ]
+    return watchlist
 
 
 @app.route("/crossoff", methods=['POST'])
@@ -32,6 +33,9 @@ def crossoff_movie():
         return redirect("/?error=" + error)
 
     # if we didn't redirect by now, then all is well
+    #else:
+        #index = watchlist[crossed_off_movie]
+        #watchlist = del watchlist[index]
     return render_template('crossoff.html', crossed_off_movie=crossed_off_movie)
 
 @app.route("/add", methods=['POST'])
@@ -49,12 +53,9 @@ def add_movie():
         error = "Trust me, you don't want to add '{0}' to your Watchlist".format(new_movie)
         return redirect("/?error=" + error)
 
-    # 'escape' the user's input so that if they typed HTML, it doesn't mess up our site
-    new_movie_escaped = cgi.escape(new_movie, quote=True)
-
-    # TODO:
-    # Use a template to render the confirmation message
-    return "Confirmation Message Under Construction..."
+    else:
+        #watchlist = watchlist.append[new_movie]
+        return render_template('add.html', new_movie=new_movie)
 
 # TODO:
 # Modify the edit.html file to display the watchlist in an unordered list with bullets in front of each movie.
